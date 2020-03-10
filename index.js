@@ -9,9 +9,9 @@ const date = require(__dirname + "/date.js");
 const app = express();
 
 // set an array for the default items in the list
-let items = ["Buy Food", "Prepare Food", "Cook Food", "Eat Food"];
+let weekday = ["Go to school"];
 // set an empty array for new work items
-let workItems = ["Show Up", "Get Settled"];
+let weekend = ["Rest"];
 
 // set EJS as the viewing engine to display html
 app.set('view engine', 'ejs');
@@ -23,13 +23,13 @@ app.use(express.static("public"));
 
 
 // default html file in web server
-app.get("/", function(req, res) {
+app.get("/week", function(req, res) {
 
     //get the system date from the getDate function exported by the date.js file
     let day = date.getDate();
 
     // use EJS render to display the day and the To Do List
-    res.render("list", {listTitle: day, newListItems: items});
+    res.render("weekday", {listTitle: day, newListItems: items});
 
 });
 
@@ -40,9 +40,9 @@ app.post("/", function(req, res) {
     // code allows items to be added to the regular list and work list
     let item = req.body.newItem;
 
-    if (req.body.list === "Work") {
+    if (req.body.list === "weekend") {
         workItems.push(item);
-        res.redirect("/work");
+        res.redirect("/weekend");
     } else {
         items.push(item);
         res.redirect("/");
@@ -50,8 +50,8 @@ app.post("/", function(req, res) {
 });
 
 // display default to do list on the localhost:3000/work route!
-app.get("/work", function(req, res){
-    res.render("list", {listTitle: "Work To Do List", newListItems: workItems})
+app.get("/weekend", function(req, res){
+    res.render("weekday", {listTitle: "weekend", newListItems: workItems})
 });
 
 app.listen(3000, function() {
