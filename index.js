@@ -27,19 +27,19 @@ app.get("/", function(req, res) {
 
     //get the system date from the getDate function exported by the date.js file
     let day = date.getDate();
-    
+
     // use EJS render to display the day and the To Do List
     res.render("list", {listTitle: day, newListItems: items});
-    
+
 });
 
 // display default to do list on the default root folder
 app.post("/", function(req, res) {
-    
-    
+
+
     // code allows items to be added to the regular list and work list
     let item = req.body.newItem;
-    
+
     if (req.body.list === "Work") {
         workItems.push(item);
         res.redirect("/work");
@@ -57,3 +57,5 @@ app.get("/work", function(req, res){
 app.listen(3000, function() {
 console.log ("Server is running on port 3000")
 });
+
+// Index Sample Do you see me?
